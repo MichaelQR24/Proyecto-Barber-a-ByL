@@ -1,0 +1,80 @@
+# Notas de Despliegue para Azure
+
+## Preparación del Backend
+
+### 1. Package.json actualizado
+- Asegurar que las dependencias estén correctamente listadas
+- Incluir scripts de inicio adecuados para Azure
+
+### 2. Configuración del Servidor
+- Configurar el puerto para que use process.env.PORT
+- Asegurar que el servidor escuche en 0.0.0.0 para Azure
+
+### 3. Configuración de la Base de Datos
+- Verificar que la conexión MySQL use SSL
+- Asegurar tiempos de espera adecuados para conexiones en la nube
+
+## Configuración requerida en Azure App Service
+
+### 1. Variables de Entorno (Application Settings)
+- DB_HOST: (URL de Azure Database for MySQL)
+- DB_USER: (Usuario con formato user@server)
+- DB_PASSWORD: (Contraseña de la base de datos)
+- DB_NAME: (Nombre de la base de datos)
+- JWT_SECRET: (Clave segura para JWT)
+- PORT: (8080 o dejar vacío para usar el puerto por defecto de Azure)
+- NODE_ENV: (production)
+
+### 2. Configuración de Escalado
+- Recomendado: B1 (Básico) o S1 (Estándar) dependiendo del tráfico esperado
+- Considerar escalado automático según la demanda
+
+## Despliegue desde CLI
+
+### Azure CLI comandos útiles:
+```
+# Iniciar sesión en Azure
+az login
+
+# Crear un grupo de recursos
+az group create --name BarberiaByL-RG --location "East US"
+
+# Crear App Service Plan
+az appservice plan create --name BarberiaByL-Plan --resource-group BarberiaByL-RG --sku B1 --is-linux
+
+# Crear Web App
+az webapp create --resource-group BarberiaByL-RG --plan BarberiaByL-Plan --name barberia-byl-app --runtime "NODE|16-lts" --deployment-local-git
+
+# Configurar variables de entorno
+az webapp config appsettings set --resource-group BarberiaByL-RG --name barberia-byl-app --settings DB_HOST="..." DB_USER="..." DB_PASSWORD="..." DB_NAME="..." JWT_SECRET="..."
+
+# Desplegar código
+git remote add azure https://<username>@barberia-byl-app.scm.azurewebsites.net/barberia-byl-app.git
+git push azure main
+```
+
+## Posibles problemas y soluciones
+
+### 1. Problemas de conexión a la base de datos
+- Verificar que el firewall de MySQL permita conexiones desde Azure App Service
+- Asegurar que SSL esté habilitado en las conexiones
+
+### 2. Problemas de CORS
+- Configurar correctamente las políticas CORS en el servidor Express
+
+### 3. Problemas de tiempo de espera
+- Ajustar connectTimeout y otros tiempos de espera para la nube
+
+## Recomendaciones de Seguridad
+
+### 1. Variables de entorno
+- Nunca almacenar credenciales directamente en el código
+- Usar Azure Key Vault para gestionar secrets más complejos
+
+### 2. HTTPS
+- Habilitar HTTPS Always en la configuración del App Service
+- Asegurar que todas las conexiones a la base de datos usen SSL
+
+### 3. Actualizaciones
+- Mantener las dependencias actualizadas
+- Revisar periódicamente las versiones de Node.js y MySQL

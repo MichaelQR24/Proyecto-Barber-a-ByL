@@ -1,0 +1,85 @@
+# Pipeline para desplegar Barbería ByL en Azure App Service
+# Documentación: https://aka.ms/yaml
+
+trigger:
+- main
+
+variables:
+  # Nombre del App Service
+  webAppName: 'barberia-byl-app'
+  
+  # Grupo de recursos
+  resourceGroupName: 'BarberiaByL-RG'
+  
+  # Ubicación del grupo de recursos
+  location: 'East US'
+  
+  # Ruta del proyecto
+  projectRoot: $(System.DefaultWorkingDirectory)/despliegue_azure/backend
+  
+  # Nombre del archivo de despliegue
+  deployZip: $(System.DefaultWorkingDirectory)/drop/$(Build.BuildId).zip
+
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:
+  - job: BuildJob
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - checkout: self
+      fetchDepth: 1
+
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '16.x'
+      displayName: 'Instalar Node.js'
+
+    - script: |
+        npm install
+        npm run build --if-present
+        npm run test --if-present
+      workingDirectory: $(projectRoot)
+      displayName: 'npm install y build'
+
+    - task: ArchiveFiles@2
+      displayName: 'Crear archivo ZIP para despliegue'
+      inputs:
+        rootFolderOrFile: '$(projectRoot)'
+        includeRootFolder: false
+        archiveType: zip
+        archiveFile: $(deployZip)
+        replaceExistingArchive: true
+
+    - upload: $(deployZip)
+      artifact: drop
+
+- stage: Deploy
+  displayName: 'Deploy Stage'
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - deployment: DeploymentJob
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            displayName: 'Desplegar en Azure Web App'
+            inputs:
+              azureSubscription: 'Tu_Conexion_Azure_Subscription'
+              appName: $(webAppName)
+              resourceGroupName: $(resourceGroupName)
+              deployToSlotOrASE: false
+              enableCustomDeployment: false
+              customDeployFolderPath: '$(projectRoot)'
+              deployWebPackage: '$(deployZip)'
+              appSettings: |
+                [
+                  { "name": "NODE_ENV", "value": "production" },
+                  { "name": "PORT", "value": "8080" }
+                ]

@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Panel de Administración — Barbería ByL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <div class="admin-dialog admin-page">
+      <header class="admin-top">
+        <div class="admin-brand">
+          <span class="logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.5 8.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Zm0 0L12 12m0 0 6.75 6.75m0 0a2.25 2.25 0 1 0 3.182-3.182M18.75 18.75 21 21m-9-9L5.25 15.75m0 0a2.25 2.25 0 1 0 3.182 3.182" stroke="#f1b41f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <div>
+            <strong>Panel de Administración</strong>
+            <div class="admin-mail">admin@barberiabyl.com</div>
+          </div>
+        </div>
+        <a class="btn btn-accent admin-logout" href="../index.html">Cerrar Sesión</a>
+      </header>
+      <div class="admin-body">
+        <div class="admin-tabs" id="adminTabs">
+          <button class="seg is-active" data-target="reservas"><span class="icon" aria-hidden="true">🏷️</span> Reservas</button>
+          <button class="seg" data-target="boletas"><span class="icon" aria-hidden="true">🧾</span> Boletas</button>
+          <button class="seg" data-target="servicios"><span class="icon" aria-hidden="true">✂️</span> Servicios</button>
+          <button class="seg" data-target="productos"><span class="icon" aria-hidden="true">🧴</span> Productos</button>
+        </div>
+
+        <!-- RESERVAS -->
+        <section class="admin-card section-panel" data-panel="reservas">
+          <header class="admin-card-head row-between">
+            <div>
+              <h3>Gestión de Reservas</h3>
+              <p>Administra y actualiza el estado de las reservas</p>
+            </div>
+          </header>
+          
+          <!-- Filtros -->
+          <div class="filter-panel">
+            <div class="filter-group">
+              <label for="filterFecha">Fecha:</label>
+              <input type="date" id="filterFecha">
+              <button class="btn btn-outline" id="clearFechaFilter">Limpiar</button>
+            </div>
+            
+            <div class="filter-group">
+              <label for="filterMes">Mes:</label>
+              <select id="filterMes">
+                <option value="">Todos</option>
+                <option value="01">Enero</option>
+                <option value="02">Febrero</option>
+                <option value="03">Marzo</option>
+                <option value="04">Abril</option>
+                <option value="05">Mayo</option>
+                <option value="06">Junio</option>
+                <option value="07">Julio</option>
+                <option value="08">Agosto</option>
+                <option value="09">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+              </select>
+            </div>
+            
+            <div class="filter-group">
+              <label for="filterAnio">Año:</label>
+              <select id="filterAnio">
+                <option value="">Todos</option>
+              </select>
+            </div>
+            
+            <div class="filter-group">
+              <label for="filterEstado">Estado:</label>
+              <select id="filterEstado">
+                <option value="">Todos</option>
+                <option value="pendiente">Pendiente</option>
+                <option value="confirmada">Confirmada</option>
+                <option value="en proceso">En Proceso</option>
+                <option value="completada">Completada</option>
+                <option value="cancelada">Cancelada</option>
+              </select>
+            </div>
+            
+            <button class="btn btn-accent" id="applyFilters">Aplicar Filtros</button>
+            <button class="btn btn-outline" id="clearAllFilters">Limpiar Todo</button>
+          </div>
+          
+          <div class="table-wrap">
+            <table class="admin-table" id="resTable">
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Teléfono</th>
+                  <th>Servicio</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Juan Pérez</td>
+                  <td>+51 987 654 321</td>
+                  <td>Corte Clásico</td>
+                  <td>2025-11-10</td>
+                  <td>10:00</td>
+                  <td class="status"><span class="chip chip-blue">En proceso</span></td>
+                  <td class="actions">
+                    <button class="ab ab-blue" data-status="process" title="En proceso">⏱</button>
+                    <button class="ab ab-green" data-status="done" title="Finalizada">✔</button>
+                    <button class="ab ab-red" data-status="cancel" title="Cancelado">✖</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Carlos Rodríguez</td>
+                  <td>+51 976 543 210</td>
+                  <td>Corte + Barba</td>
+                  <td>2025-11-08</td>
+                  <td>14:00</td>
+                  <td class="status"><span class="chip chip-green">Finalizada</span></td>
+                  <td class="actions">
+                    <button class="ab ab-blue" data-status="process">⏱</button>
+                    <button class="ab ab-green" data-status="done">✔</button>
+                    <button class="ab ab-red" data-status="cancel">✖</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- BOLETAS -->
+        <section class="admin-card section-panel is-hidden" data-panel="boletas">
+          <header class="admin-card-head row-between">
+            <div>
+              <h3>Gestión de Boletas</h3>
+              <p>Crea y administra las boletas de pago</p>
+            </div>
+            <button class="btn btn-accent" id="btnAddTicket">+ Añadir Boleta</button>
+          </header>
+          <div class="table-wrap">
+            <table class="admin-table" id="ticketTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Cliente</th>
+                  <th>Fecha</th>
+                  <th>Producto/Servicio</th>
+                  <th>Total</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>BOL-001</td>
+                  <td>Carlos Rodríguez</td>
+                  <td>2025-11-08</td>
+                  <td>2 item(s)</td>
+                  <td>S/ 40</td>
+                  <td class="status"><span class="chip chip-green">Pagado</span></td>
+                  <td class="actions"><button class="ab ab-blue" title="Descargar">⬇</button><button class="ab ab-amber" data-edit-ticket title="Editar">✎</button><button class="ab ab-red" data-del-ticket title="Eliminar">🗑</button></td>
+                </tr>
+                <tr>
+                  <td>BOL-002</td>
+                  <td>Andrés López</td>
+                  <td>2025-11-07</td>
+                  <td>1 item(s)</td>
+                  <td>S/ 60</td>
+                  <td class="status"><span class="chip chip-green">Pagado</span></td>
+                  <td class="actions"><button class="ab ab-blue" title="Descargar">⬇</button><button class="ab ab-amber" data-edit-ticket title="Editar">✎</button><button class="ab ab-red" data-del-ticket title="Eliminar">🗑</button></td>
+                </tr>
+                <tr>
+                  <td>BOL-003</td>
+                  <td>Juan Pérez</td>
+                  <td>2025-11-10</td>
+                  <td>2 item(s)</td>
+                  <td>S/ 65</td>
+                  <td class="status"><span class="chip chip-yellow">Pendiente</span></td>
+                  <td class="actions"><button class="ab ab-blue" title="Descargar">⬇</button><button class="ab ab-amber" data-edit-ticket title="Editar">✎</button><button class="ab ab-red" data-del-ticket title="Eliminar">🗑</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- SERVICIOS -->
+        <section class="admin-card section-panel is-hidden" data-panel="servicios">
+          <header class="admin-card-head row-between">
+            <div>
+              <h3>Servicios</h3>
+              <p>Lista de servicios disponibles</p>
+            </div>
+            <button class="btn btn-accent" id="btnAddService">+ Añadir Servicio</button>
+          </header>
+
+          <div class="svc-grid" id="svcGrid">
+            <article class="svc-card"><div class="svc-actions"><button class="ab ab-amber" data-edit-service title="Editar">✎</button><button class="ab ab-red" data-del-service title="Eliminar">🗑</button></div><h4>Corte Clásico</h4><p>Precio: <span class="price">S/ 25</span></p><p>Duración: 30 min</p></article>
+            <article class="svc-card"><div class="svc-actions"><button class="ab ab-amber" data-edit-service title="Editar">✎</button><button class="ab ab-red" data-del-service title="Eliminar">🗑</button></div><h4>Corte Moderno</h4><p>Precio: <span class="price">S/ 30</span></p><p>Duración: 40 min</p></article>
+            <article class="svc-card"><div class="svc-actions"><button class="ab ab-amber" data-edit-service title="Editar">✎</button><button class="ab ab-red" data-del-service title="Eliminar">🗑</button></div><h4>Corte + Barba</h4><p>Precio: <span class="price">S/ 40</span></p><p>Duración: 50 min</p></article>
+            <article class="svc-card"><div class="svc-actions"><button class="ab ab-amber" data-edit-service title="Editar">✎</button><button class="ab ab-red" data-del-service title="Eliminar">🗑</button></div><h4>Afeitado Tradicional</h4><p>Precio: <span class="price">S/ 20</span></p><p>Duración: 25 min</p></article>
+            <article class="svc-card"><div class="svc-actions"><button class="ab ab-amber" data-edit-service title="Editar">✎</button><button class="ab ab-red" data-del-service title="Eliminar">🗑</button></div><h4>Tratamiento Capilar</h4><p>Precio: <span class="price">S/ 60</span></p><p>Duración: 60 min</p></article>
+          </div>
+        </section>
+
+        <!-- PRODUCTOS -->
+        <section class="admin-card section-panel is-hidden" data-panel="productos">
+          <header class="admin-card-head row-between">
+            <div>
+              <h3>Productos</h3>
+              <p>Inventario de productos disponibles</p>
+            </div>
+            <button class="btn btn-accent" id="btnAddProduct">+ Añadir Producto</button>
+          </header>
+          <div class="table-wrap">
+            <table class="admin-table" id="prodTable">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Categoría</th>
+                  <th>Precio</th>
+                  <th>Stock</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Cera Moldeadora Premium</td><td>Cabello</td><td>S/ 35</td><td><span class="chip chip-green">15 unidades</span></td><td class="actions"><button class="ab ab-amber" data-edit-product title="Editar">✎</button><button class="ab ab-red" data-del-product title="Eliminar">🗑</button></td></tr>
+                <tr><td>Aceite para Barba</td><td>Barba</td><td>S/ 28</td><td><span class="chip chip-green">20 unidades</span></td><td class="actions"><button class="ab ab-amber" data-edit-product title="Editar">✎</button><button class="ab ab-red" data-del-product title="Eliminar">🗑</button></td></tr>
+                <tr><td>Shampoo Especializado</td><td>Cabello</td><td>S/ 32</td><td><span class="chip chip-green">12 unidades</span></td><td class="actions"><button class="ab ab-amber" data-edit-product title="Editar">✎</button><button class="ab ab-red" data-del-product title="Eliminar">🗑</button></td></tr>
+                <tr><td>Loción After Shave</td><td>Afeitado</td><td>S/ 25</td><td><span class="chip chip-green">18 unidades</span></td><td class="actions"><button class="ab ab-amber" data-edit-product title="Editar">✎</button><button class="ab ab-red" data-del-product title="Eliminar">🗑</button></td></tr>
+                <tr><td>Gel Fijador</td><td>Cabello</td><td>S/ 22</td><td><span class="chip chip-green">25 unidades</span></td><td class="actions"><button class="ab ab-amber" data-edit-product title="Editar">✎</button><button class="ab ab-red" data-del-product title="Eliminar">🗑</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- MODAL PARA CREAR BOLETA -->
+      <div class="modal" id="createTicketModal" aria-hidden="true">
+        <div class="modal-overlay" data-close="true"></div>
+        <div class="modal-dialog lg" role="dialog" aria-modal="true">
+          <header class="modal-head">
+            <h3>Nueva Boleta</h3>
+            <button class="modal-close" type="button" aria-label="Cerrar">✕</button>
+          </header>
+          <div class="modal-body">
+            <form id="createTicketForm" class="admin-form" novalidate>
+              <div class="form-field">
+                <label for="ctClient">Cliente</label>
+                <input id="ctClient" type="text" placeholder="Nombre del cliente" required />
+              </div>
+              <div class="form-field">
+                <label>Producto/Servicio</label>
+                <div class="form-row">
+                  <input id="ctItemDesc" type="text" placeholder="Descripción del servicio/producto" />
+                  <input id="ctItemPrice" type="number" placeholder="Precio" />
+                </div>
+                <button class="btn btn-outline" id="btnAddCreateItem" type="button">+ Agregar Producto/Servicio</button>
+                <ul id="ctItemList" class="list"></ul>
+              </div>
+              <div class="form-row">
+                <input id="ctTotal" type="text" placeholder="Total" disabled />
+                <button class="btn btn-accent btn-block" type="submit">Crear Boleta</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL PARA EDITAR BOLETA -->
+      <div class="modal" id="editTicketModal" aria-hidden="true">
+        <div class="modal-overlay" data-close="true"></div>
+        <div class="modal-dialog lg" role="dialog" aria-modal="true">
+          <header class="modal-head">
+            <h3>Editar Boleta</h3>
+            <button class="modal-close" type="button" aria-label="Cerrar">✕</button>
+          </header>
+          <div class="modal-body">
+            <form id="editTicketForm" class="admin-form" novalidate>
+              <div class="form-field">
+                <label for="etClient">Cliente</label>
+                <input id="etClient" type="text" placeholder="Nombre del cliente" required />
+              </div>
+              <div class="form-field">
+                <label>Producto/Servicio</label>
+                <div class="form-row">
+                  <input id="etItemDesc" type="text" placeholder="Descripción del servicio/producto" />
+                  <input id="etItemPrice" type="number" step="0.01" placeholder="Precio" />
+                </div>
+                <button class="btn btn-outline" id="btnAddEditItem" type="button">+ Agregar Producto/Servicio</button>
+                <ul id="etItemList" class="list"></ul>
+              </div>
+              <div class="form-row">
+                <input id="etTotal" type="number" step="0.01" placeholder="Total" required />
+                <button class="btn btn-accent btn-block" type="submit">Actualizar Boleta</button>
+              </div>
+              <div class="form-field">
+                <label for="etEstadoPago">Estado de Pago</label>
+                <select id="etEstadoPago" required>
+                  <option value="pendiente">Pendiente</option>
+                  <option value="pagado">Pagado</option>
+                  <option value="rechazado">Rechazado</option>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL PARA CREAR SERVICIO -->
+      <div class="modal" id="createServiceModal" aria-hidden="true">
+        <div class="modal-overlay" data-close="true"></div>
+        <div class="modal-dialog" role="dialog" aria-modal="true">
+          <header class="modal-head">
+            <h3>Nuevo Servicio</h3>
+            <button class="modal-close" type="button" aria-label="Cerrar">✕</button>
+          </header>
+          <div class="modal-body">
+            <form id="createServiceForm" class="admin-form" novalidate>
+              <div class="form-field">
+                <label for="csName">Nombre del Servicio</label>
+                <input id="csName" type="text" placeholder="Ej: Corte Premium" required />
+              </div>
+              <div class="form-field">
+                <label for="csPrice">Precio (S/)</label>
+                <input id="csPrice" type="number" step="0.01" placeholder="Ej: 25.00" required />
+              </div>
+              <div class="form-field">
+                <label for="csDur">Duración (min)</label>
+                <input id="csDur" type="number" placeholder="Ej: 30" required />
+              </div>
+              <div class="form-field">
+                <label for="csDescripcion">Descripción</label>
+                <textarea id="csDescripcion" placeholder="Descripción del servicio"></textarea>
+              </div>
+              <button class="btn btn-accent btn-block" type="submit">Agregar Servicio</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL PARA EDITAR SERVICIO -->
+      <div class="modal" id="editServiceModal" aria-hidden="true">
+        <div class="modal-overlay" data-close="true"></div>
+        <div class="modal-dialog" role="dialog" aria-modal="true">
+          <header class="modal-head">
+            <h3>Editar Servicio</h3>
+            <button class="modal-close" type="button" aria-label="Cerrar">✕</button>
+          </header>
+          <div class="modal-body">
+            <form id="editServiceForm" class="admin-form" novalidate>
+              <div class="form-field">
+                <label for="esName">Nombre del Servicio</label>
+                <input id="esName" type="text" placeholder="Ej: Corte Premium" required />
+              </div>
+              <div class="form-field">
+                <label for="esPrice">Precio (S/)</label>
+                <input id="esPrice" type="number" step="0.01" placeholder="Ej: 25.00" required />
+              </div>
+              <div class="form-field">
+                <label for="esDur">Duración (min)</label>
+                <input id="esDur" type="number" placeholder="Ej: 30" required />
+              </div>
+              <div class="form-field">
+                <label for="esDescripcion">Descripción</label>
+                <textarea id="esDescripcion" placeholder="Descripción del servicio"></textarea>
+              </div>
+              <div class="form-field">
+                <label for="esActivo">Estado</label>
+                <select id="esActivo" required>
+                  <option value="1">Activo</option>
+                  <option value="0">Inactivo</option>
+                </select>
+              </div>
+              <button class="btn btn-accent btn-block" type="submit">Actualizar Servicio</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" id="productModal" aria-hidden="true">
+        <div class="modal-overlay" data-close="true"></div>
+        <div class="modal-dialog" role="dialog" aria-modal="true">
+          <header class="modal-head">
+            <h3>Nuevo Producto</h3>
+            <button class="modal-close" type="button" aria-label="Cerrar">✕</button>
+          </header>
+          <div class="modal-body">
+            <form id="productForm" class="admin-form" novalidate>
+              <div class="form-field">
+                <label for="pName">Nombre del Producto</label>
+                <input id="pName" type="text" placeholder="Ej: Pomada Fijadora" required />
+              </div>
+              <div class="form-field">
+                <label for="pCategory">Categoría</label>
+                <select id="pCategory" required>
+                  <option value="" selected disabled>Selecciona categoría</option>
+                  <option>Cabello</option>
+                  <option>Barba</option>
+                  <option>Afeitado</option>
+                  <option>Cuidado</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="pPrice">Precio (COP)</label>
+                <input id="pPrice" type="number" placeholder="Ej: 28000" required />
+              </div>
+              <div class="form-field">
+                <label for="pStock">Stock (unidades)</label>
+                <input id="pStock" type="number" placeholder="Ej: 20" required />
+              </div>
+              <button class="btn btn-accent btn-block" type="submit">Agregar Producto</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <!-- MODAL PARA EDITAR PRODUCTO -->
+      <div class="modal" id="editProductModal" aria-hidden="true">
+        <div class="modal-overlay" data-close="true"></div>
+        <div class="modal-dialog" role="dialog" aria-modal="true">
+          <header class="modal-head">
+            <h3>Editar Producto</h3>
+            <button class="modal-close" type="button" aria-label="Cerrar">✕</button>
+          </header>
+          <div class="modal-body">
+            <form id="editProductForm" class="admin-form" novalidate>
+              <div class="form-field">
+                <label for="epName">Nombre del Producto</label>
+                <input id="epName" type="text" placeholder="Ej: Pomada Fijadora" required />
+              </div>
+              <div class="form-field">
+                <label for="epCategory">Categoría</label>
+                <select id="epCategory" required>
+                  <option value="" selected disabled>Selecciona categoría</option>
+                  <option>Cabello</option>
+                  <option>Barba</option>
+                  <option>Afeitado</option>
+                  <option>Cuidado</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="epPrice">Precio (COP)</label>
+                <input id="epPrice" type="number" placeholder="Ej: 28000" required />
+              </div>
+              <div class="form-field">
+                <label for="epStock">Stock (unidades)</label>
+                <input id="epStock" type="number" placeholder="Ej: 20" required />
+              </div>
+              <button class="btn btn-accent btn-block" type="submit">Actualizar Producto</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/admin_api.js"></script>
+    <script src="check_auth.js"></script>
+    <script src="../js/admin.js"></script>
+  </body>
+  </html>

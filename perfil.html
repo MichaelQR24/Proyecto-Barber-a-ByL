@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Barbería ByL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <!-- Header / Navbar -->
+    <header class="site-header">
+        <nav class="nav container">
+            <a class="brand" href="index.html" aria-label="Volver al inicio">
+                <span class="logo" aria-hidden="true">
+                    <!-- Scissors logo (inline SVG) -->
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.5 8.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Zm0 0L12 12m0 0 6.75 6.75m0 0a2.25 2.25 0 1 0 3.182-3.182M18.75 18.75 21 21m-9-9L5.25 15.75m0 0a2.25 2.25 0 1 0 3.182 3.182" stroke="#f1b41f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span class="brand-text">Barbería ByL</span>
+            </a>
+
+            <button class="nav-toggle" aria-controls="navLinks" aria-expanded="false" aria-label="Abrir menú">
+                <span></span><span></span><span></span>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#inicio">Inicio</a></li>
+                <li><a href="index.html#quienes">Quiénes Somos</a></li>
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="index.html#productos">Productos</a></li>
+                <li><a href="index.html#ubicacion">Ubicación</a></li>
+                <li><a href="index.html#reserva">Reserva</a></li>
+            </ul>
+
+            <a href="#" class="btn btn-login" id="logoutBtn">
+                <span class="icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 5l7 7-7 7M20 12H4" stroke="#1a1202" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span class="btn-text">Cerrar Sesión</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- Mi Perfil -->
+    <main class="section" style="padding-top: 120px;">
+        <div class="container">
+            <header class="section-head">
+                <h2>Mi Perfil</h2>
+                <p>Administra tu información personal</p>
+            </header>
+
+            <div class="booking-card">
+                <div class="perfil-header">
+                    <div class="perfil-avatar">
+                        <svg viewBox="0 0 24 24" width="64" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8a7 7 0 0 1 14 0" stroke="#f1b41f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 id="perfil-nombre" class="perfil-name">Cargando...</h3>
+                    <span id="perfil-rol" class="perfil-role">Cargando rol...</span>
+                </div>
+                
+                <div id="perfil-container" class="perfil-details">
+                    <div class="perfil-info-row">
+                        <div class="info-label">Nombre</div>
+                        <div id="nombre-display" class="info-value">Cargando...</div>
+                        <button id="editarNombreBtn" class="edit-btn" title="Editar nombre">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 5l7 7-7 7M20 12H4" stroke="#f1b41f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="perfil-info-row">
+                        <div class="info-label">Email</div>
+                        <div id="email-display" class="info-value">Cargando...</div>
+                        <button id="editarEmailBtn" class="edit-btn" title="Editar email">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 5l7 7-7 7M20 12H4" stroke="#f1b41f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="perfil-info-row">
+                        <div class="info-label">Teléfono</div>
+                        <div id="telefono-display" class="info-value">Cargando...</div>
+                        <button id="editarTelefonoBtn" class="edit-btn" title="Editar teléfono">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 5l7 7-7 7M20 12H4" stroke="#f1b41f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="perfil-actions">
+                    <a href="mis_reservas.html" class="btn btn-accent">Mis Reservas</a>
+                </div>
+                
+                <!-- Formulario de actualización de perfil -->
+                <div id="update-form-container" class="is-hidden perfil-form">
+                    <form id="updateProfileForm" class="admin-form">
+                        <div class="form-field">
+                            <label for="nombre">Nombre Completo</label>
+                            <input id="nombre" name="nombre" type="text" required />
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" required />
+                        </div>
+                        
+                        <div class="form-field">
+                            <label for="telefono">Teléfono</label>
+                            <input id="telefono" name="telefono" type="tel" placeholder="+51 XXX XXX XXX" />
+                        </div>
+                        
+                        <div class="perfil-form-buttons">
+                            <button class="btn btn-accent" type="submit">Guardar Cambios</button>
+                            <button class="btn btn-outline" id="cancelUpdateBtn">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="f-brand">
+                    <span class="logo" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.5 8.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Zm0 0L12 12m0 0 6.75 6.75m0 0a2.25 2.25 0 1 0 3.182-3.182M18.75 18.75 21 21m-9-9L5.25 15.75m0 0a2.25 2.25 0 1 0 3.182 3.182" stroke="#f1b41f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <span class="brand-text">Barbería ByL</span>
+                </div>
+                <p>Tu destino para el cuidado personal masculino con estilo y profesionalismo.</p>
+            </div>
+
+            <div class="footer-contact">
+                <h3>Contacto</h3>
+                <ul class="contact-list" role="list">
+                    <li>Calle Principal #123</li>
+                    <li>Centro, Ciudad</li>
+                    <li>+51 987 654 321</li>
+                    <li><a href="mailto:contacto@barberiabyl.com">contacto@barberiabyl.com</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-social">
+                <h3>Síguenos</h3>
+                <div class="socials">
+                    <a href="#" aria-label="Facebook" class="social">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 3h-2a4 4 0 0 0-4 4v3H6v3h3v8h3v-8h3l1-3h-4V7a1 1 0 0 1 1-1h3V3z" fill="#fff"/></svg>
+                    </a>
+                    <a href="#" aria-label="Instagram" class="social">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="3.5" stroke="#fff" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg>
+                    </a>
+                    <a href="#" aria-label="Twitter" class="social">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 5.9a7 7 0 0 1-2 .55 3.5 3.5 0 0 0 1.54-1.93 7 7 0 0 1-2.22.85 3.5 3.5 0 0 0-6 3.19A9.9 9.9 0 0 1 3.6 4.7a3.5 3.5 0 0 0 1.08 4.67 3.4 3.4 0 0 1-1.58-.44v.04A3.5 3.5 0 0 0 6.5 12a3.6 3.6 0 0 1-.92.12c-.22 0-.45-.02-.66-.06a3.5 3.5 0 0 0 3.27 2.43A7 7 0 0 1 2 16.9a9.9 9.9 0 0 0 5.35 1.57c6.42 0 9.93-5.32 9.93-9.93v-.46A7.1 7.1 0 0 0 22 5.9Z" fill="#fff"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-line"></div>
+        <div class="container footer-copy">© 2025 Barbería ByL. Todos los derechos reservados.</div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            // Verificar si el usuario está autenticado
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Debes iniciar sesión para ver tu perfil');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Manejar logout
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    apiClient.logout();
+                    alert('Sesión cerrada exitosamente');
+                    window.location.href = 'index.html';
+                });
+            }
+
+            const perfilContainer = document.getElementById('perfil-container');
+            const updateFormContainer = document.getElementById('update-form-container');
+            const updateForm = document.getElementById('updateProfileForm');
+            const cancelUpdateBtn = document.getElementById('cancelUpdateBtn');
+
+            try {
+                // Cargar perfil del usuario
+                const response = await apiClient.getProfile();
+                const user = response.user;
+                
+                // Actualizar encabezado con información básica
+                document.getElementById('perfil-nombre').textContent = user.nombre;
+                document.getElementById('perfil-rol').textContent = user.rol;
+                
+                // Mostrar información de contacto
+                document.getElementById('email-display').textContent = user.email;
+                document.getElementById('telefono-display').textContent = user.telefono || 'No registrado';
+                document.getElementById('nombre-display').textContent = user.nombre;
+                
+                // Botón para editar cada campo individualmente
+                document.getElementById('editarNombreBtn').addEventListener('click', () => {
+                    loadAndShowUpdateForm(user);
+                });
+                
+                document.getElementById('editarEmailBtn').addEventListener('click', () => {
+                    loadAndShowUpdateForm(user);
+                });
+                
+                document.getElementById('editarTelefonoBtn').addEventListener('click', () => {
+                    loadAndShowUpdateForm(user);
+                });
+
+                // Función para cargar el formulario con datos actuales
+                function loadAndShowUpdateForm(userData) {
+                    document.getElementById('nombre').value = userData.nombre;
+                    document.getElementById('email').value = userData.email;
+                    document.getElementById('telefono').value = userData.telefono || '';
+                    
+                    // Ocultar información de perfil y mostrar formulario
+                    perfilContainer.classList.add('is-hidden');
+                    updateFormContainer.classList.remove('is-hidden');
+                }
+
+                // Manejar actualización de perfil
+                updateForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const nombre = document.getElementById('nombre').value.trim();
+                    const email = document.getElementById('email').value.trim();
+                    const telefono = document.getElementById('telefono').value.trim();
+                    
+                    // Validar teléfono si se proporciona
+                    if (telefono) {
+                        const cleanPhone = telefono.replace(/\D/g, '');
+                        if (cleanPhone.length < 9) {
+                            alert('El teléfono debe tener al menos 9 dígitos.');
+                            return;
+                        }
+                    }
+                    
+                    try {
+                        // Actualizar perfil
+                        await apiClient.updateProfile({ nombre, email, telefono });
+                        
+                        // Recargar la información del perfil
+                        const updatedResponse = await apiClient.getProfile();
+                        const updatedUser = updatedResponse.user;
+                        
+                        // Volver a mostrar la información del perfil actualizada
+                        document.getElementById('nombre-display').textContent = updatedUser.nombre;
+                        document.getElementById('email-display').textContent = updatedUser.email;
+                        document.getElementById('telefono-display').textContent = updatedUser.telefono || 'No registrado';
+                        
+                        // Ocultar formulario y mostrar información actualizada
+                        updateFormContainer.classList.add('is-hidden');
+                        perfilContainer.classList.remove('is-hidden');
+                        
+                        alert('Perfil actualizado exitosamente');
+                    } catch (error) {
+                        console.error('Error al actualizar perfil:', error);
+                        alert('Error al actualizar el perfil: ' + error.message);
+                    }
+                });
+
+                // Botón de cancelar edición
+                cancelUpdateBtn.addEventListener('click', () => {
+                    updateFormContainer.classList.add('is-hidden');
+                    perfilContainer.classList.remove('is-hidden');
+                });
+
+            } catch (error) {
+                console.error('Error al cargar el perfil:', error);
+                perfilContainer.innerHTML = '<p class="center">Error al cargar tu perfil. Por favor, intenta de nuevo más tarde.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
