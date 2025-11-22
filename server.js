@@ -3,12 +3,16 @@
 
 const express = require('express');
 const mysql = require('mysql2');
+const path = require('path');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
 const app = express();
+
+// Servir archivos estáticos desde el directorio raíz
+app.use(express.static(path.join(__dirname)));
 
 // Middleware para pasar la conexión a la base de datos a las rutas
 app.use((req, res, next) => {
@@ -42,18 +46,23 @@ app.get('/api/test', (req, res) => {
 app.get('/api/sync-db', (req, res) => {
   // Añadir la columna cliente_nombre a la tabla boletas si no existe
   const addClienteNombreColumnQuery = `
-    ALTER TABLE boletas 
+    ALTER TABLE boletas
     ADD COLUMN IF NOT EXISTS cliente_nombre VARCHAR(100) NULL
   `;
-  
+
   req.db.query(addClienteNombreColumnQuery, (err, result) => {
     if (err) {
       console.error('Error al añadir la columna cliente_nombre:', err);
       return res.status(500).json({ message: 'Error al sincronizar la base de datos', error: err.message });
     }
-    
+
     res.json({ message: 'Base de datos sincronizada correctamente', result });
   });
+});
+
+// Manejar rutas de frontend - cualquier ruta que no sea /api va al frontend
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;

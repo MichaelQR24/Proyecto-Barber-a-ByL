@@ -2,8 +2,9 @@
 // Cliente API para conectar el frontend con el backend
 
 class ApiClient {
-  constructor(baseURL = 'http://localhost:5000/api') {
-    this.baseURL = baseURL;
+  constructor(baseURL = '') { // Usar URL relativa para producción
+    // En producción, usar la misma URL base; en desarrollo seguir usando localhost
+    this.baseURL = baseURL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
     this.token = localStorage.getItem('token');
   }
 
