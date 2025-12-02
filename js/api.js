@@ -3,8 +3,8 @@
 
 class ApiClient {
   constructor(baseURL = '') { // Usar URL relativa para producción
-    // En producción, usar la misma URL base; en desarrollo seguir usando localhost
-    this.baseURL = baseURL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+    // En producción, usar la URL del backend desplegado en Azure; en desarrollo seguir usando localhost
+    this.baseURL = baseURL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://barberia-byl-backend-bngdfzd5dggmdhcz.mexicocentral-01.azurewebsites.net/api');
     this.token = localStorage.getItem('token');
   }
 
