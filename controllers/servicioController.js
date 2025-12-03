@@ -8,7 +8,13 @@ const servicioController = {
   getAll: (req, res) => {
     Servicio.getAll((err, results) => {
       if (err) {
-        return res.status(500).json({ message: 'Error en el servidor', error: err });
+        console.error("ERROR REAL /api/servicios =>", err); // Log detallado para depuración
+        return res.status(500).json({
+          message: 'Error en el servidor',
+          mysqlCode: err.code,
+          mysqlErrno: err.errno,
+          detail: err.message
+        });
       }
       res.json({
         servicios: results
@@ -22,7 +28,13 @@ const servicioController = {
 
     Servicio.getById(id, (err, results) => {
       if (err) {
-        return res.status(500).json({ message: 'Error en el servidor', error: err });
+        console.error("ERROR REAL /api/servicios/:id =>", err); // Log detallado para depuración
+        return res.status(500).json({
+          message: 'Error en el servidor',
+          mysqlCode: err.code,
+          mysqlErrno: err.errno,
+          detail: err.message
+        });
       }
 
       if (results.length === 0) {
@@ -59,7 +71,13 @@ const servicioController = {
 
     Servicio.create(nuevoServicio, (err, results) => {
       if (err) {
-        return res.status(500).json({ message: 'Error al crear el servicio', error: err });
+        console.error("ERROR REAL /api/servicios (CREATE) =>", err); // Log detallado para depuración
+        return res.status(500).json({
+          message: 'Error al crear el servicio',
+          mysqlCode: err.code,
+          mysqlErrno: err.errno,
+          detail: err.message
+        });
       }
 
       nuevoServicio.id = results.insertId;
@@ -91,7 +109,13 @@ const servicioController = {
 
     Servicio.update(id, datosServicio, (err, results) => {
       if (err) {
-        return res.status(500).json({ message: 'Error al actualizar el servicio', error: err });
+        console.error("ERROR REAL /api/servicios/:id (UPDATE) =>", err); // Log detallado para depuración
+        return res.status(500).json({
+          message: 'Error al actualizar el servicio',
+          mysqlCode: err.code,
+          mysqlErrno: err.errno,
+          detail: err.message
+        });
       }
 
       if (results.affectedRows === 0) {
@@ -114,8 +138,13 @@ const servicioController = {
 
     Servicio.delete(id, (err, results) => {
       if (err) {
-        console.error('Error al eliminar servicio:', err);
-        return res.status(500).json({ message: 'Error al eliminar el servicio', error: err.message });
+        console.error("ERROR REAL /api/servicios/:id (DELETE) =>", err); // Log detallado para depuración
+        return res.status(500).json({
+          message: 'Error al eliminar el servicio',
+          mysqlCode: err.code,
+          mysqlErrno: err.errno,
+          detail: err.message
+        });
       }
 
       if (results.affectedRows === 0) {
